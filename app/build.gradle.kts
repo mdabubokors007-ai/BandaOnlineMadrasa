@@ -41,17 +41,16 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     debugImplementation("androidx.compose.ui:ui-tooling")
 
-    // ✅ Supabase Kotlin SDK 2.x (সঠিক package)
-    implementation(platform("io.github.jan-tennert.supabase:bom:2.6.0"))
+    // ✅ Supabase Kotlin SDK 3.x (সঠিক প্যাকেজ নাম)
+    implementation(platform("io.github.jan-tennert.supabase:bom:3.5.0"))
     implementation("io.github.jan-tennert.supabase:auth-kt")
     implementation("io.github.jan-tennert.supabase:postgrest-kt")
     implementation("io.github.jan-tennert.supabase:storage-kt")
 
-    // Ktor for Supabase networking
-    implementation("io.ktor:ktor-client-android:2.3.12")
-    implementation("io.ktor:ktor-client-core:2.3.12")
+    // Ktor 3.x (Supabase 3.x এর জন্য আবশ্যক)
+    implementation("io.ktor:ktor-client-android:3.0.3")
+    implementation("io.ktor:ktor-client-core:3.0.3")
 
-    // Media3 for video playback
     implementation("androidx.media3:media3-exoplayer:1.4.1")
     implementation("androidx.media3:media3-ui:1.4.1")
 }

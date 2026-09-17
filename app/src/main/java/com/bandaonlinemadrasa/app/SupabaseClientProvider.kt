@@ -32,6 +32,7 @@ fun SupabaseClient.handleDeeplinks(intent: Intent?) {
     val data = intent.data ?: return
     if (data.scheme == "bandaonlinemadrasa" && data.host == "login-callback") {
         try {
+            // SDK 3.x এ parseDeeplink সরাসরি এই ফাংশন দিয়েই হ্যান্ডেল হয়
             this.auth.parseDeeplink(data.toString())
         } catch (t: Throwable) {
             // ignore invalid deeplinks
