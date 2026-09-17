@@ -5,6 +5,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization")
 }
 import java.util.Properties
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 val props = Properties()
 rootProject.file("local.properties").takeIf { it.exists() }?.inputStream()?.use { props.load(it) }
 
@@ -25,7 +26,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions { jvmTarget = "11" }
+    compilerOptions { jvmTarget = JvmTarget.JVM_11 }
 }
 dependencies {
     val composeBom = platform("androidx.compose:compose-bom:2026.08.00")
