@@ -6,6 +6,7 @@ plugins {
 }
 import java.util.Properties
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 val props = Properties()
 rootProject.file("local.properties").takeIf { it.exists() }?.inputStream()?.use { props.load(it) }
 
@@ -26,7 +27,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    compilerOptions { jvmTarget = JvmTarget.JVM_11 }
+     
 }
 dependencies {
     val composeBom = platform("androidx.compose:compose-bom:2026.08.00")
@@ -45,4 +46,9 @@ dependencies {
     implementation("io.ktor:ktor-client-core:3.0.3")
     implementation("androidx.media3:media3-exoplayer:1.11.1")
     implementation("androidx.media3:media3-ui:1.11.1")
+}
+
+
+tasks.withType<KotlinCompile>().configureEach {
+    compilerOptions.jvmTarget.set(JvmTarget.JVM_11)
 }
