@@ -2,8 +2,6 @@ package com.bandaonlinemadrasa.app.data
 
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.from
-import io.github.jan.supabase.postgrest.query.filter.FilterOperator
-import io.github.jan.supabase.postgrest.query.filter.eq
 
 class UserActivityRepository(private val client: SupabaseClient) {
 
