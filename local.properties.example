@@ -1,0 +1,5 @@
+# Copy to local.properties (do NOT commit local.properties)
+# GitHub Actions uses repository Secrets instead.
+sdk.dir=C\:\\Users\\YOUR_USER\\AppData\\Local\\Android\\Sdk
+SUPABASE_URL=https://YOUR_PROJECT.supabase.co
+SUPABASE_PUBLISHABLE_KEY=your_anon_or_publishable_key
