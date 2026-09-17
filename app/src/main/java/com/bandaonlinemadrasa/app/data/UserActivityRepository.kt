@@ -1,11 +1,18 @@
 package com.bandaonlinemadrasa.app.data
 
 import io.github.jan.supabase.SupabaseClient
+import io.github.jan.supabase.postgrest.from
+import io.github.jan.supabase.postgrest.query.filter.FilterOperator
+import io.github.jan.supabase.postgrest.query.filter.eq
 
 class UserActivityRepository(private val client: SupabaseClient) {
+
     suspend fun addFavorite(userId: String, contentId: String) {
         client.from("favorites").upsert(
-            mapOf("user_id" to userId, "content_id" to contentId)
+            mapOf(
+                "user_id" to userId,
+                "content_id" to contentId
+            )
         )
     }
 
@@ -20,13 +27,19 @@ class UserActivityRepository(private val client: SupabaseClient) {
 
     suspend fun recordRecentView(userId: String, contentId: String) {
         client.from("recent_views").upsert(
-            mapOf("user_id" to userId, "content_id" to contentId)
+            mapOf(
+                "user_id" to userId,
+                "content_id" to contentId
+            )
         )
     }
 
     suspend fun recordDownload(userId: String, contentId: String) {
         client.from("download_history").upsert(
-            mapOf("user_id" to userId, "content_id" to contentId)
+            mapOf(
+                "user_id" to userId,
+                "content_id" to contentId
+            )
         )
     }
 }

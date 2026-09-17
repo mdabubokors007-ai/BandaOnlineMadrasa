@@ -4,9 +4,11 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
     id("org.jetbrains.kotlin.plugin.serialization")
 }
+
 import java.util.Properties
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 val props = Properties()
 rootProject.file("local.properties").takeIf { it.exists() }?.inputStream()?.use { props.load(it) }
 
@@ -27,27 +29,32 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-     
 }
+
 dependencies {
-    val composeBom = platform("androidx.compose:compose-bom:2026.06.01")
+    val composeBom = platform("androidx.compose:compose-bom:2024.09.00")
     implementation(composeBom)
-    implementation("androidx.activity:activity-compose:1.13.0")
+    implementation("androidx.activity:activity-compose:1.9.2")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.foundation:foundation")
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-tooling-preview")
     debugImplementation("androidx.compose.ui:ui-tooling")
-    implementation(platform("io.github.jan-tennert.supabase:bom:3.5.0"))
+
+    // ✅ Supabase Kotlin SDK 2.x (সঠিক package)
+    implementation(platform("io.github.jan-tennert.supabase:bom:2.6.0"))
     implementation("io.github.jan-tennert.supabase:auth-kt")
     implementation("io.github.jan-tennert.supabase:postgrest-kt")
     implementation("io.github.jan-tennert.supabase:storage-kt")
-    implementation("io.ktor:ktor-client-android:3.0.3")
-    implementation("io.ktor:ktor-client-core:3.0.3")
-    implementation("androidx.media3:media3-exoplayer:1.11.1")
-    implementation("androidx.media3:media3-ui:1.11.1")
-}
 
+    // Ktor for Supabase networking
+    implementation("io.ktor:ktor-client-android:2.3.12")
+    implementation("io.ktor:ktor-client-core:2.3.12")
+
+    // Media3 for video playback
+    implementation("androidx.media3:media3-exoplayer:1.4.1")
+    implementation("androidx.media3:media3-ui:1.4.1")
+}
 
 tasks.withType<KotlinCompile>().configureEach {
     compilerOptions.jvmTarget.set(JvmTarget.JVM_11)

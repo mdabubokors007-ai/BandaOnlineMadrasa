@@ -5,7 +5,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import io.github.jan.supabase.auth.SessionStatus
+import io.github.jan.supabase.auth.status.SessionStatus
 
 @Composable
 fun AuthGate(
@@ -13,20 +13,32 @@ fun AuthGate(
     loginContent: @Composable () -> Unit,
     authenticatedContent: @Composable (userId: String) -> Unit
 ) {
-    val status by sessionManager.sessionStatus.collectAsState(initial = SessionStatus.Initializing)
+    val status by sessionManager.sessionStatus.collectAsState(
+        initial = SessionStatus.Initializing
+    )
 
     when (status) {
-        SessionStatus.Initializing -> Box(
-            Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) { CircularProgressIndicator() }
+        SessionStatus.Initializing -> {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+        }
 
         is SessionStatus.Authenticated -> {
             val userId = sessionManager.currentUserId()
-            if (userId != null) authenticatedContent(userId) else loginContent()
+            if (userId != null) {
+                authenticatedContent(userId)
+            } else {
+                loginContent()
+            }
         }
 
         is SessionStatus.NotAuthenticated,
-        is SessionStatus.RefreshFailure -> loginContent()
+        is SessionStatus.RefreshFailure -> {
+            loginContent()
+        }
     }
 }
