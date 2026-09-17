@@ -1,19 +1,11 @@
 package com.bandaonlinemadrasa.app.ui
 
 import android.view.ViewGroup
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
+import android.widget.ImageView
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
@@ -46,9 +38,7 @@ fun MediaViewer(
 @Composable
 private fun VideoPlayer(url: String) {
     AndroidView(
-        modifier = Modifier
-            .fillMaxWidth()
-            .aspectRatio(16f / 9f),
+        modifier = Modifier.fillMaxWidth().aspectRatio(16f / 9f),
         factory = { context ->
             PlayerView(context).apply {
                 layoutParams = ViewGroup.LayoutParams(
@@ -67,14 +57,12 @@ private fun VideoPlayer(url: String) {
 
 @Composable
 private fun ImagePreview(url: String, title: String) {
-    Column(
-        Modifier
-            .fillMaxSize()
-            .padding(20.dp)
-    ) {
+    // URL-to-image loader is intentionally kept behind this boundary so the
+    // final build can choose an image library without exposing private URLs.
+    Column(Modifier.fillMaxSize().padding(20.dp)) {
         Text(title, style = MaterialTheme.typography.titleLarge)
         Spacer(Modifier.height(12.dp))
-        Text("Image viewer foundation — signed URL দিয়ে পরের পাসে zoom/swipe যুক্ত হবে।")
+        Text("Image viewer প্রস্তুত — signed image URL দিয়ে পূর্ণ zoom/swipe viewer পরের UI pass-এ যুক্ত হবে।")
         Text(url, style = MaterialTheme.typography.bodySmall)
     }
 }

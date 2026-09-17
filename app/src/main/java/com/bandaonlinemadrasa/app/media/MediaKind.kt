@@ -1,13 +1,11 @@
 package com.bandaonlinemadrasa.app.media
 
-enum class MediaKind {
-    VIDEO, IMAGE, DOCUMENT, SOFTWARE, UNKNOWN
-}
+enum class MediaKind { IMAGE, VIDEO, DOCUMENT, SOFTWARE, UNKNOWN }
 
-fun kindOf(category: String): MediaKind = when (category.lowercase()) {
-    "video", "videos" -> MediaKind.VIDEO
-    "image", "images", "photo", "photos" -> MediaKind.IMAGE
-    "document", "documents", "pdf", "book", "books" -> MediaKind.DOCUMENT
-    "software", "app", "apps" -> MediaKind.SOFTWARE
+fun kindOf(category: String): MediaKind = when (category.uppercase()) {
+    "IMAGE" -> MediaKind.IMAGE
+    "VIDEO" -> MediaKind.VIDEO
+    "DOCUMENT" -> MediaKind.DOCUMENT
+    "SOFTWARE" -> MediaKind.SOFTWARE
     else -> MediaKind.UNKNOWN
 }

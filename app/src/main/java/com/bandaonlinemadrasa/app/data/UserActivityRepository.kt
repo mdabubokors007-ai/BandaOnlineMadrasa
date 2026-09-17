@@ -1,7 +1,6 @@
 package com.bandaonlinemadrasa.app.data
 
 import io.github.jan.supabase.SupabaseClient
-import io.github.jan.supabase.postgrest.from
 
 class UserActivityRepository(private val client: SupabaseClient) {
     suspend fun addFavorite(userId: String, contentId: String) {

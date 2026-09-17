@@ -1,16 +1,11 @@
 package com.bandaonlinemadrasa.app.auth
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import io.github.jan.supabase.auth.SessionStatus
 
 @Composable
 fun AuthGate(
@@ -18,19 +13,20 @@ fun AuthGate(
     loginContent: @Composable () -> Unit,
     authenticatedContent: @Composable (userId: String) -> Unit
 ) {
-    var userId by remember { mutableStateOf<String?>(null) }
-    var ready by remember { mutableStateOf(false) }
+    val status by sessionManager.sessionStatus.collectAsState(initial = SessionStatus.Initializing)
 
-    LaunchedEffect(Unit) {
-        userId = sessionManager.currentUserId()
-        ready = true
-    }
+    when (status) {
+        SessionStatus.Initializing -> Box(
+            Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) { CircularProgressIndicator() }
 
-    when {
-        !ready -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            CircularProgressIndicator()
+        is SessionStatus.Authenticated -> {
+            val userId = sessionManager.currentUserId()
+            if (userId != null) authenticatedContent(userId) else loginContent()
         }
-        userId != null -> authenticatedContent(userId!!)
-        else -> loginContent()
+
+        is SessionStatus.NotAuthenticated,
+        is SessionStatus.RefreshFailure -> loginContent()
     }
 }
