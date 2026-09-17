@@ -1,20 +1,3 @@
 #!/bin/sh
-#
-# Gradle start script for POSIX
-#
-APP_HOME=$( cd "${0%/*}" && pwd -P ) || exit
-APP_NAME="Gradle"
-DEFAULT_JVM_OPTS='"-Xmx2048m" "-Xms256m"'
-
-CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
-
-if [ -n "$JAVA_HOME" ] ; then
-  JAVACMD=$JAVA_HOME/bin/java
-else
-  JAVACMD=java
-fi
-
-exec "$JAVACMD" $DEFAULT_JVM_OPTS \
-  -classpath "$CLASSPATH" \
-  org.gradle.wrapper.GradleWrapperMain \
-  "$@"
+DIR="\( (cd " \)(dirname "$0")" && pwd)"
+exec java -Xmx2048m -classpath "\( DIR/gradle/wrapper/gradle-wrapper.jar" org.gradle.wrapper.GradleWrapperMain " \)@"
